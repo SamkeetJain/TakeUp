@@ -32,6 +32,9 @@
                 android:textSize="14sp"
                 android:id="@+id/setName"
                 tools:text="Napolean solo"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:maxLines="1"
                 android:textColor="#808080"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content" />
@@ -52,6 +55,9 @@
             <EditText
                 android:gravity="center"
                 android:layout_weight="1"
+                android:imeOptions="actionNext"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
                 android:textSize="14sp"
                 android:id="@+id/setEmail"
                 tools:text="test@test.com"
@@ -77,6 +83,9 @@
                 android:layout_weight="1"
                 android:textSize="14sp"
                 android:id="@+id/setPhone"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:maxLines="1"
                 tools:text="0000000000"
                 android:textColor="#808080"
                 android:layout_width="0dp"
@@ -100,6 +109,8 @@
                 android:layout_weight="1"
                 android:textSize="14sp"
                 android:id="@+id/setAddress"
+                android:inputType="textMultiLine"
+                android:imeOptions="actionNext"
                 tools:text="#101, whilte building, near country club, banaglore."
                 android:textColor="#808080"
                 android:layout_width="0dp"
@@ -109,24 +120,41 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="18dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingBottom="18dp">
+
             <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:gravity="center"
                 android:text="Gender: "
-                android:textSize="14sp"
+                android:textSize="14sp" />
+
+            <RadioGroup
                 android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content" />
-            <EditText
-                android:gravity="center"
-                android:layout_weight="1"
-                android:textSize="14sp"
-                android:id="@+id/setGender"
-                tools:text="Male"
-                android:textColor="#808080"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <RadioButton
+                    android:gravity="center"
+                    android:imeOptions="actionNext"
+                    android:maxLines="1"
+                    android:text="Male"
+                    android:id="@+id/setGenderMale"
+                    android:textColor="#808080"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <RadioButton
+                    android:gravity="center"
+                    android:imeOptions="actionNext"
+                    android:maxLines="1"
+                    android:text="Female"
+                    android:id="@+id/setGenderFemale"
+                    android:textColor="#808080"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RadioGroup>
         </LinearLayout>
 
         <LinearLayout

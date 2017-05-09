@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 
 import com.samkeet.takeup.R;
 
@@ -14,23 +15,26 @@ public class Profile extends AppCompatActivity {
     private EditText tEmail;
     private EditText tPhoneNo;
     private EditText tAddress;
-    private EditText tGender;
+    private RadioButton rGenderMale;
+    private RadioButton rGenderFemmale;
     private EditText tDateOfBirth;
 
     private Button bEdit;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile2);
+        setContentView(R.layout.activity_profile);
 
         tName = (EditText) findViewById(R.id.setName);
         tEmail = (EditText) findViewById(R.id.setEmail);
         tPhoneNo = (EditText) findViewById(R.id.setPhone);
         tAddress = (EditText) findViewById(R.id.setAddress);
-        tGender = (EditText) findViewById(R.id.setGender);
+        rGenderFemmale = (RadioButton) findViewById(R.id.setGenderFemale);
+        rGenderMale = (RadioButton) findViewById(R.id.setGenderMale);
         tDateOfBirth = (EditText) findViewById(R.id.setDateOfBirth);
 
         bEdit = (Button) findViewById(R.id.edit_button);
+
 
         bEdit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,7 +58,8 @@ public class Profile extends AppCompatActivity {
         tEmail.setEnabled(false);
         tPhoneNo.setEnabled(false);
         tAddress.setEnabled(false);
-        tGender.setEnabled(false);
+        rGenderFemmale.setEnabled(false);
+        rGenderMale.setEnabled(false);
         tDateOfBirth.setEnabled(false);
     }
 
@@ -63,7 +68,8 @@ public class Profile extends AppCompatActivity {
         tEmail.setEnabled(true);
         tPhoneNo.setEnabled(true);
         tAddress.setEnabled(true);
-        tGender.setEnabled(true);
+        rGenderFemmale.setEnabled(true);
+        rGenderMale.setEnabled(true);
         tDateOfBirth.setEnabled(true);
     }
 }

@@ -135,17 +135,30 @@
                 android:text="Gender: "
                 android:textSize="14sp" />
 
-            <EditText
-                android:id="@+id/setGender"
+            <RadioGroup
+                android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:textColor="#808080"
-                android:imeOptions="actionNext"
-                android:inputType="text"
-                android:maxLines="1"
-                android:textSize="14sp" />
+                android:orientation="horizontal">
+                <RadioButton
+                    android:gravity="center"
+                    android:imeOptions="actionNext"
+                    android:maxLines="1"
+                    android:text="Male"
+                    android:id="@+id/setGenderMale"
+                    android:textColor="#808080"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <RadioButton
+                    android:gravity="center"
+                    android:imeOptions="actionNext"
+                    android:maxLines="1"
+                    android:text="Female"
+                    android:id="@+id/setGenderFemale"
+                    android:textColor="#808080"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RadioGroup>
         </LinearLayout>
 
         <LinearLayout
