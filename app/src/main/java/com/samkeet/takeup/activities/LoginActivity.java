@@ -1,6 +1,5 @@
 package com.samkeet.takeup.activities;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -10,12 +9,12 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.samkeet.takeup.Constants;
@@ -46,6 +45,7 @@ public class LoginActivity extends AppCompatActivity {
     private TextInputLayout tEmail, tPassword;
     private Button mLogin;
 
+    private TextView tGoToSignup;
     private SpotsDialog pd;
     private Context progressDialogContext;
     public boolean authenticationError = true;
@@ -65,7 +65,9 @@ public class LoginActivity extends AppCompatActivity {
         tEmail = (TextInputLayout) findViewById(R.id.text_email);
         tPassword = (TextInputLayout) findViewById(R.id.text_password);
 
+        tGoToSignup = (TextView) findViewById(R.id.go_to_signup);
         mLogin = (Button) findViewById(R.id.login_button);
+
         mLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -74,6 +76,14 @@ public class LoginActivity extends AppCompatActivity {
                     Login login = new Login();
                     login.execute();
                 }
+            }
+        });
+
+        tGoToSignup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
+                startActivity(intent);
             }
         });
 

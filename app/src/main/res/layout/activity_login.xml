@@ -66,7 +66,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:padding="8dp">
 
             <Button
@@ -82,7 +82,16 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Google" />
+
         </LinearLayout>
+
+        <TextView
+            android:layout_marginTop="18dp"
+            android:layout_gravity="center"
+            android:text="No account yet? Create one"
+            android:id="@+id/go_to_signup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
 </LinearLayout>
