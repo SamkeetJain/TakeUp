@@ -50,7 +50,7 @@ public class LoginActivity extends AppCompatActivity {
     private Context progressDialogContext;
     public boolean authenticationError = true;
     public String errorMessage = "Data Corrupted";
-    public String token, auth;
+    public String token, name, auth;
 
 
     @Override
@@ -58,6 +58,13 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         progressDialogContext = this;
+
+        Constants.SharedPreferenceData.initSharedPreferenceData(getSharedPreferences(Constants.SharedPreferenceData.SHAREDPREFERENCES, MODE_PRIVATE));
+
+        if (Constants.SharedPreferenceData.getIsLoggedIn().equals("yes")) {
+            auth = Constants.SharedPreferenceData.getAUTH();
+            forward();
+        }
 
         mEmail = (EditText) findViewById(R.id.email);
         mPassword = (EditText) findViewById(R.id.password);
@@ -181,6 +188,7 @@ public class LoginActivity extends AppCompatActivity {
                     if (status.equals("success")) {
                         token = jsonObj.getString("token");
                         auth = jsonObj.getString("auth");
+                        name = jsonObj.getString("name");
                         authenticationError = false;
                     } else {
                         authenticationError = true;
@@ -211,6 +219,7 @@ public class LoginActivity extends AppCompatActivity {
                 Constants.SharedPreferenceData.setTOKEN(token);
                 Constants.SharedPreferenceData.setEMAIL(email);
                 Constants.SharedPreferenceData.setAUTH(auth);
+                Constants.SharedPreferenceData.setNAME(name);
                 forward();
             }
 

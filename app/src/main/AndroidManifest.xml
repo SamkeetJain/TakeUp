@@ -12,7 +12,6 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyADpiURj6dyUPb4L--R2XcKjDaTLbHDJBM" />
@@ -28,7 +27,8 @@
         <activity android:name=".activities.SignupActivity" />
         <activity android:name=".activities.MainActivity" />
         <activity android:name=".organisation.OrgActivity" />
-        <activity android:name=".users.UserActivity"></activity>
+        <activity android:name=".users.UserActivity" />
+        <activity android:name=".organisation.AddNewActivity"></activity>
     </application>
 
 </manifest>

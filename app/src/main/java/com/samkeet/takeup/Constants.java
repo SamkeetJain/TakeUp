@@ -13,6 +13,13 @@ public class Constants {
         public static String SIGNUP = "signup.php";
     }
 
+    public static class LocationsData {
+        public static double lat = 0;
+        public static double lon = 0;
+        public static double acc = 0;
+
+    }
+
     public static class SharedPreferenceData {
         public static SharedPreferences sharedPreferences = null;
         public static SharedPreferences.Editor editor = null;
@@ -22,6 +29,7 @@ public class Constants {
         public static String EMAIL = "email";
         public static String TOKEN = "token";
         public static String AUTH = "auth";
+        public static String NAME = "name";
 
         public static void initSharedPreferenceData(SharedPreferences sharedPreferences1) {
             sharedPreferences = sharedPreferences1;
@@ -44,6 +52,15 @@ public class Constants {
 
         public static String getIsLoggedIn() {
             return sharedPreferences.getString(IS_LOGGED_IN, "NOT_AVALIBLE");
+        }
+
+        public static String getNAME() {
+            return sharedPreferences.getString(NAME, "NOT_AVALIBLE");
+        }
+
+        public static void setNAME(String name) {
+            editor.putString(NAME, name);
+            editor.apply();
         }
 
         public static String getAUTH() {
