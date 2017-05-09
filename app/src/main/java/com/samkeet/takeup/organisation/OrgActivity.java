@@ -118,7 +118,7 @@ public class OrgActivity extends AppCompatActivity implements OnMapReadyCallback
 //                .withGenerateMiniDrawer(false)
                 .withAccountHeader(headerResult) //set the AccountHeader we created earlier for the header
                 .addDrawerItems(
-                        new ProfileDrawerItem().withEmail(Constants.SharedPreferenceData.getEMAIL()).withName(Constants.SharedPreferenceData.getNAME().toUpperCase()).withNameShown(true).withSelectable(false),
+                        new ProfileDrawerItem().withEmail(Constants.SharedPreferenceData.getEMAIL()).withName(Constants.SharedPreferenceData.getNAME().toUpperCase()).withNameShown(true).withSelectable(false).withIdentifier(0),
                         new DividerDrawerItem(),
                         new PrimaryDrawerItem().withName("Home").withIcon(R.drawable.ic_home_black_24dp).withIdentifier(1),
                         new PrimaryDrawerItem().withName("Add New Plant").withIcon(R.drawable.ic_add_circle_outline_black_24dp).withIdentifier(2),
@@ -132,6 +132,10 @@ public class OrgActivity extends AppCompatActivity implements OnMapReadyCallback
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+                        if(drawerItem.getIdentifier() ==0){
+                            Intent intent = new Intent(getApplicationContext(),Profile.class);
+                            startActivity(intent);
+                        }
                         if (drawerItem.getIdentifier() == 1) {
 
                         }
