@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.IntentCompat;
@@ -77,6 +78,8 @@ public class OrgActivity extends AppCompatActivity implements OnMapReadyCallback
     public GoogleMap mMap;
     public Marker now;
 
+    private FloatingActionButton mFab;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,6 +87,15 @@ public class OrgActivity extends AppCompatActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment)
                 getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        mFab = (FloatingActionButton) findViewById(R.id.fab1);
+        mFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), AddNewActivity.class);
+                startActivity(intent);
+            }
+        });
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -124,7 +136,8 @@ public class OrgActivity extends AppCompatActivity implements OnMapReadyCallback
 
                         }
                         if (drawerItem.getIdentifier() == 2) {
-
+                            Intent intent = new Intent(getApplicationContext(), AddNewActivity.class);
+                            startActivity(intent);
                         }
                         if (drawerItem.getIdentifier() == 3) {
 
