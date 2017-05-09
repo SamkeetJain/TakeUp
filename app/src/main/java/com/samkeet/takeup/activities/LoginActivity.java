@@ -45,6 +45,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText mEmail, mPassword;
     private TextInputLayout tEmail, tPassword;
     private Button mLogin;
+
     private SpotsDialog pd;
     private Context progressDialogContext;
     public boolean authenticationError = true;

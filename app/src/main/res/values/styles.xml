@@ -15,4 +15,10 @@
         <item name="DialogSpotCount">4</item>
     </style>
 
+    <style name="GreenButton" parent="Widget.AppCompat.Button.Colored">
+        <item name="android:textColor">#ffffff</item>
+        <item name="colorButtonNormal">@color/colorPrimary</item>
+
+    </style>
+
 </resources>

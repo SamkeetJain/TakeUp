@@ -2,12 +2,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/background">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_centerVertical="true"
         android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
         android:orientation="vertical">
 
         <TextView
@@ -35,19 +36,19 @@
         android:padding="25dp">
 
         <Button
-            style="@style/Base.Widget.AppCompat.Button.Colored"
             android:id="@+id/login_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Login" />
+            android:text="Login"
+            android:theme="@style/GreenButton" />
 
         <Button
-            style="@style/Base.Widget.AppCompat.Button.Colored"
             android:id="@+id/signup_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Signup" />
+            android:text="Signup"
+            android:theme="@style/GreenButton" />
     </LinearLayout>
 </RelativeLayout>

@@ -10,7 +10,7 @@ public class Constants {
     public static class URLs {
         public static String BASE = "http://52.66.31.167/takeup/";
         public static String LOGIN = "login.php";
-        public static String SIGN_UP = "signup.php";
+        public static String SIGNUP = "signup.php";
     }
 
     public static class SharedPreferenceData {
