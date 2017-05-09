@@ -104,7 +104,6 @@ public class SignupActivity extends AppCompatActivity {
         }else{
             tAddress.setErrorEnabled(false);
         }
-
         return true;
     }
 
