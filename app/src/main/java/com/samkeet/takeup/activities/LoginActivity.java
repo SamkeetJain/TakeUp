@@ -1,10 +1,15 @@
 package com.samkeet.takeup.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.samkeet.takeup.R;
@@ -14,38 +19,64 @@ import com.samkeet.takeup.R;
  */
 
 public class LoginActivity extends AppCompatActivity {
-    private String mMobileNumber;
-    private String mPassword;
-    private EditText mobileNumber;
-    private EditText password;
+    private String email, password;
+    private EditText mEmail, mPassword;
+    private TextInputLayout tEmail, tPassword;
+    private Button mLogin;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sigin);
+        setContentView(R.layout.activity_login);
 
-        mobileNumber = (EditText) findViewById(R.id.mobile_number);
-        password = (EditText) findViewById(R.id.password);
+        mEmail = (EditText) findViewById(R.id.email);
+        mPassword = (EditText) findViewById(R.id.password);
+
+        tEmail = (TextInputLayout) findViewById(R.id.text_email);
+        tPassword = (TextInputLayout) findViewById(R.id.text_password);
+
+        mLogin = (Button) findViewById(R.id.login_button);
+        mLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (valid()) {
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
 
 
     }
 
-    private void inputValidation(){
-        mMobileNumber = mobileNumber.getText().toString().trim();
-        mPassword = password.getText().toString().trim();
+    private boolean valid() {
+        email = mEmail.getText().toString().trim();
+        password = mPassword.getText().toString().trim();
 
-        if(mMobileNumber.isEmpty() || mMobileNumber.length() != 10){
-            requestFocus(mobileNumber);
+        if (email.isEmpty() || !isValidEmail(email)) {
+            tEmail.setError("Enter valid Email");
+            requestFocus(mEmail);
+            return false;
+        } else {
+            tEmail.setErrorEnabled(false);
         }
-
-        if(mPassword.isEmpty()){
-            requestFocus(password);
+        if (password.isEmpty() || password.length() > 32) {
+            tPassword.setError("Enter valid password (32 char max)");
+            requestFocus(mPassword);
+            return false;
+        } else {
+            tPassword.setErrorEnabled(false);
         }
+        return true;
 
     }
 
-    private void requestFocus(View view){
-        if(view.requestFocus()){
+    private static boolean isValidEmail(String email) {
+        return !TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches();
+    }
+
+    private void requestFocus(View view) {
+        if (view.requestFocus()) {
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         }
     }
