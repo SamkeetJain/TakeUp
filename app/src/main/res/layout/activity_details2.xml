@@ -10,4 +10,112 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.samkeet.takeup.users.DetailsActivity">
 
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="16dp">
+
+            <TextView
+                android:gravity="center"
+                android:id="@+id/plant_name"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="Mango tree"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            android:id="@+id/plant_image"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="16dp">
+
+            <TextView
+                android:gravity="center"
+                android:text="Details "
+                android:textSize="12sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:paddingTop="8dp"
+                android:gravity="center"
+                android:id="@+id/plant_details"
+                android:layout_width="match_parent"
+                android:text="mango tree is very good tree"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="16dp">
+
+            <TextView
+                android:gravity="center"
+                android:text="Adopted status"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:gravity="center"
+                android:id="@+id/plant_take_up_status"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="The tree has been adopted."
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="16dp">
+
+            <TextView
+                android:gravity="center"
+                android:text="Adopted by"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:gravity="center"
+                android:id="@+id/plant_take_up_user"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="Lilly shah"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="16dp">
+
+            <TextView
+                android:gravity="center"
+                android:text="Organization name "
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:gravity="center"
+                android:id="@+id/user_added_name"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="Lilly shah"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+    </LinearLayout>
 </RelativeLayout>
