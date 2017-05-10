@@ -9,6 +9,8 @@ import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
@@ -29,6 +31,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
@@ -46,6 +49,21 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.samkeet.takeup.Constants;
 import com.samkeet.takeup.R;
 import com.samkeet.takeup.activities.LoginActivity;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.ConnectException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.UnknownHostException;
+
+import dmax.dialog.SpotsDialog;
 
 public class OrgActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -75,15 +93,23 @@ public class OrgActivity extends AppCompatActivity implements OnMapReadyCallback
             new LocationListener(LocationManager.NETWORK_PROVIDER)
     };
 
+    private SpotsDialog pd;
+    private Context progressDialogContext;
+    public boolean authenticationError = true;
+    public String errorMessage = "Data Corrupted";
+
     public GoogleMap mMap;
     public Marker now;
 
     private FloatingActionButton mFab;
 
+    private JSONArray mTreeObjects;
+    private Marker[] mTreeMarkers;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user);
+        setContentView(R.layout.activity_org);
         SupportMapFragment mapFragment = (SupportMapFragment)
                 getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -132,8 +158,8 @@ public class OrgActivity extends AppCompatActivity implements OnMapReadyCallback
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-                        if(drawerItem.getIdentifier() ==0){
-                            Intent intent = new Intent(getApplicationContext(),Profile.class);
+                        if (drawerItem.getIdentifier() == 0) {
+                            Intent intent = new Intent(getApplicationContext(), Profile.class);
                             startActivity(intent);
                         }
                         if (drawerItem.getIdentifier() == 1) {
@@ -144,7 +170,8 @@ public class OrgActivity extends AppCompatActivity implements OnMapReadyCallback
                             startActivity(intent);
                         }
                         if (drawerItem.getIdentifier() == 3) {
-
+                            Intent intent = new Intent(getApplicationContext(), MyFleetActivity.class);
+                            startActivity(intent);
                         }
                         if (drawerItem.getIdentifier() == 4) {
                             logout();
@@ -168,6 +195,10 @@ public class OrgActivity extends AppCompatActivity implements OnMapReadyCallback
             return;
         }
         startTracking();
+
+        getData();
+
+
     }
 
     public void startTracking() {
@@ -298,6 +329,27 @@ public class OrgActivity extends AppCompatActivity implements OnMapReadyCallback
         } else {
             now = mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).zIndex(10f).draggable(false).title("Me"));
         }
+
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                String ID = (String) (marker.getTag());
+                try {
+                    for (int i = 0; i < mTreeObjects.length(); i++) {
+
+                        if (mTreeObjects.getJSONObject(i).getString("ID").equals(ID)) {
+                            Toast.makeText(getApplicationContext(), mTreeObjects.getJSONObject(i).toString(), Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(getApplicationContext(), DetailsActivity.class);
+                            intent.putExtra("DATA", mTreeObjects.getJSONObject(i).toString());
+                            startActivity(intent);
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                return false;
+            }
+        });
     }
 
     private class LocationListener implements android.location.LocationListener {
@@ -344,5 +396,103 @@ public class OrgActivity extends AppCompatActivity implements OnMapReadyCallback
         public void onStatusChanged(String provider, int status, Bundle extras) {
         }
     }
+
+    public void getData() {
+        Data data = new Data();
+        data.execute();
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Data data = new Data();
+        data.execute();
+    }
+
+    private class Data extends AsyncTask<Void, Void, Integer> {
+
+        protected void onPreExecute() {
+
+        }
+
+        protected Integer doInBackground(Void... params) {
+            try {
+
+                URL url = new URL(Constants.URLs.BASE + Constants.URLs.PLANT_DB);
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.setDoInput(true);
+                connection.setDoOutput(true);
+                connection.setRequestMethod("POST");
+
+                Uri.Builder _data = new Uri.Builder().appendQueryParameter("token", Constants.SharedPreferenceData.getTOKEN());
+                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(connection.getOutputStream(), "UTF-8"));
+                writer.write(_data.build().getEncodedQuery());
+                writer.flush();
+                writer.close();
+
+                InputStreamReader in = new InputStreamReader(connection.getInputStream());
+                StringBuilder jsonResults = new StringBuilder();
+                // Load the results into a StringBuilder
+                int read;
+                char[] buff = new char[1024];
+                while ((read = in.read(buff)) != -1) {
+                    jsonResults.append(buff, 0, read);
+                }
+                connection.disconnect();
+                authenticationError = jsonResults.toString().contains("Authentication Error");
+
+                if (authenticationError) {
+                    errorMessage = jsonResults.toString();
+                } else {
+                    JSONArray jsonArray = new JSONArray(jsonResults.toString());
+                    mTreeObjects = jsonArray;
+                }
+
+                return 1;
+            } catch (FileNotFoundException | ConnectException | UnknownHostException ex) {
+                authenticationError = true;
+                errorMessage = "Please check internet connection.\nConnection to server terminated.";
+                ex.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return 1;
+        }
+
+        protected void onPostExecute(Integer result) {
+            if (authenticationError) {
+                Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_SHORT).show();
+            } else {
+                forward();
+            }
+
+        }
+    }
+
+    public void forward() {
+
+        mTreeMarkers = new Marker[mTreeObjects.length()];
+        try {
+            for (int i = 0; i < mTreeObjects.length(); i++) {
+                JSONObject jsonObject = mTreeObjects.getJSONObject(i);
+                String ID = jsonObject.getString("ID");
+                String lat = jsonObject.getString("lat_loc");
+                String lon = jsonObject.getString("lan_loc");
+                String name = jsonObject.getString("Plant_Name");
+                String details = jsonObject.getString("Plant_Details");
+                String takeup_status = jsonObject.getString("Take_Up_Status");
+                String takeup_user = jsonObject.getString("Take_Up_User");
+                String last_watering = jsonObject.getString("Last_Watering");
+                String img_url = jsonObject.getString("Image_Url");
+                mTreeMarkers[i] = mMap.addMarker(new MarkerOptions().position(new LatLng(Double.valueOf(lat), Double.valueOf(lon))).icon(BitmapDescriptorFactory.fromResource(R.drawable.tree_48x48)).zIndex(10f).draggable(false).title(name));
+                mTreeMarkers[i].setTag(ID);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }

@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,6 +47,7 @@ public class SignupActivity extends AppCompatActivity implements DatePickerDialo
     private String mAddress;
     private String mPassword;
     private String mCPassword;
+    private String dateofbirth;
 
     private EditText name;
     private EditText password;
@@ -69,6 +71,9 @@ public class SignupActivity extends AppCompatActivity implements DatePickerDialo
     public boolean authenticationError = true;
     public String errorMessage = "Data Corrupted";
 
+    private RadioButton mOrg, mUser, mMale, mFemale;
+    private String radio_gender, radio_auth;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,6 +94,14 @@ public class SignupActivity extends AppCompatActivity implements DatePickerDialo
         tAddress = (TextInputLayout) findViewById(R.id.text_address);
         tPassword = (TextInputLayout) findViewById(R.id.text_password);
         tCpassword = (TextInputLayout) findViewById(R.id.text_cpassword);
+
+        mOrg = (RadioButton) findViewById(R.id.org);
+        mUser = (RadioButton) findViewById(R.id.user);
+        mMale = (RadioButton) findViewById(R.id.male);
+        mFemale = (RadioButton) findViewById(R.id.female);
+
+        mMale.setChecked(true);
+        mUser.setChecked(true);
 
         mCreateAccount = (Button) findViewById(R.id.createaccount);
         mCreateAccount.setOnClickListener(new View.OnClickListener() {
@@ -123,6 +136,18 @@ public class SignupActivity extends AppCompatActivity implements DatePickerDialo
         mAddress = address.getText().toString().trim();
         mPassword = password.getText().toString().trim();
         mCPassword = cpassword.getText().toString().trim();
+
+        if (mMale.isChecked()) {
+            radio_gender = "male";
+        } else {
+            radio_gender = "female";
+        }
+
+        if (mOrg.isChecked()) {
+            radio_auth = "ORG";
+        } else {
+            radio_auth = "USER";
+        }
 
 
         if (mName.isEmpty()) {
@@ -205,7 +230,7 @@ public class SignupActivity extends AppCompatActivity implements DatePickerDialo
         }
 
         fullDate = year + "-" + (monthofyear) + "-" + dayofmonth;
-
+        dateofbirth = fullDate;
         dob.setText(fullDate);
     }
 
@@ -232,8 +257,9 @@ public class SignupActivity extends AppCompatActivity implements DatePickerDialo
                         .appendQueryParameter("Phone_No", mMobileNumber)
                         .appendQueryParameter("Address", mAddress)
                         .appendQueryParameter("Full_Name", mName)
-                        .appendQueryParameter("Dob", "fsd")
-                        .appendQueryParameter("Gender", "Male");
+                        .appendQueryParameter("Dob", dateofbirth)
+                        .appendQueryParameter("Gender", radio_gender)
+                        .appendQueryParameter("auth", radio_auth);
                 BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(connection.getOutputStream(), "UTF-8"));
                 writer.write(_data.build().getEncodedQuery());
                 writer.flush();

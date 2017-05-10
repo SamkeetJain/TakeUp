@@ -44,7 +44,11 @@
         <activity android:name=".users.UserActivity" />
         <activity android:name=".organisation.AddNewActivity" />
         <activity android:name=".organisation.Profile" />
-        <activity android:name=".users.Profile"></activity>
+        <activity android:name=".users.Profile" />
+        <activity android:name=".organisation.MyFleetActivity" />
+        <activity android:name=".users.MyFleetActivity" />
+        <activity android:name=".organisation.DetailsActivity" />
+        <activity android:name=".users.DetailsActivity"></activity>
     </application>
 
 </manifest>

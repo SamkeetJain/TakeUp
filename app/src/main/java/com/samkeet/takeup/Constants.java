@@ -11,6 +11,9 @@ public class Constants {
         public static String BASE = "http://52.66.31.167/takeup/";
         public static String ADD_PLANT = "addplant.php";
         public static String LOGIN = "login.php";
+        public static String PLANT_DB = "plant_details.php";
+        public static String NOT_ADOPTED = "notadopted.php";
+        public static String ADOPTED_DB = "adopted_details.php";
         public static String SIGNUP = "signup.php";
     }
 

@@ -112,12 +112,14 @@
                     android:paddingRight="25dp">
 
                     <RadioButton
+                        android:id="@+id/male"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Male" />
 
                     <RadioButton
+                        android:id="@+id/female"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -182,12 +184,14 @@
                     android:paddingRight="25dp">
 
                     <RadioButton
+                        android:id="@+id/org"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Organisation" />
 
                     <RadioButton
+                        android:id="@+id/user"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
