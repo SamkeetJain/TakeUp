@@ -43,9 +43,10 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.samkeet.takeup.Constants;
+import com.samkeet.takeup.DevelopersActivity;
 import com.samkeet.takeup.R;
 import com.samkeet.takeup.activities.LoginActivity;
-import com.samkeet.takeup.organisation.OrgActivity;
+import com.samkeet.takeup.organisation.*;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -115,8 +116,8 @@ public class UserActivity extends AppCompatActivity implements OnMapReadyCallbac
         headerResult = new AccountHeaderBuilder()
                 .withActivity(this)
                 .withTranslucentStatusBar(true)
-                //.withHeaderBackground(R.drawable.reva_headerp)
-//                .withHeaderBackground(R.drawable.header)
+                .withHeaderBackground(R.drawable.header)
+                //                .withHeaderBackground(R.drawable.header)
                 /// TODO: 19-Oct-16
                 .withSavedInstance(savedInstanceState)
                 .build();
@@ -134,7 +135,6 @@ public class UserActivity extends AppCompatActivity implements OnMapReadyCallbac
                         new DividerDrawerItem(),
                         new PrimaryDrawerItem().withName("Home").withIcon(R.drawable.ic_home_black_24dp).withIdentifier(1),
                         new PrimaryDrawerItem().withName("My Fleet").withIcon(R.drawable.ic_add_circle_outline_black_24dp).withIdentifier(2),
-                        new PrimaryDrawerItem().withName("Notification").withIcon(R.drawable.ic_map_black_24dp).withIdentifier(3),
                         new PrimaryDrawerItem().withName("Logout").withIcon(R.drawable.ic_logout_24dp).withIdentifier(4),
                         new DividerDrawerItem(),
                         new PrimaryDrawerItem().withName("About Us").withIcon(R.drawable.ic_about_24dp).withIdentifier(5),
@@ -166,6 +166,8 @@ public class UserActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                         }
                         if (drawerItem.getIdentifier() == 6) {
+                            Intent intent = new Intent(getApplicationContext(), DevelopersActivity.class);
+                            startActivity(intent);
 
                         }
                         return false;
@@ -322,7 +324,9 @@ public class UserActivity extends AppCompatActivity implements OnMapReadyCallbac
                     for (int i = 0; i < mTreeObjects.length(); i++) {
 
                         if (mTreeObjects.getJSONObject(i).getString("ID").equals(ID)) {
-                            Toast.makeText(getApplicationContext(), mTreeObjects.getJSONObject(i).toString(), Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(getApplicationContext(), DetailsActivity.class);
+                            intent.putExtra("DATA", mTreeObjects.getJSONObject(i).toString());
+                            startActivity(intent);
                         }
                     }
                 } catch (JSONException e) {
@@ -467,7 +471,11 @@ public class UserActivity extends AppCompatActivity implements OnMapReadyCallbac
                 String takeup_user = jsonObject.getString("Take_Up_User");
                 String last_watering = jsonObject.getString("Last_Watering");
                 String img_url = jsonObject.getString("Image_Url");
-                mTreeMarkers[i] = mMap.addMarker(new MarkerOptions().position(new LatLng(Double.valueOf(lat), Double.valueOf(lon))).icon(BitmapDescriptorFactory.fromResource(R.drawable.tree_48x48)).zIndex(10f).draggable(false).title(name));
+                if (takeup_status.equals("NOT_ADOPATED")) {
+                    mTreeMarkers[i] = mMap.addMarker(new MarkerOptions().position(new LatLng(Double.valueOf(lat), Double.valueOf(lon))).icon(BitmapDescriptorFactory.fromResource(R.drawable.tree_48x48)).zIndex(10f).draggable(false).title(name));
+                } else {
+                    mTreeMarkers[i] = mMap.addMarker(new MarkerOptions().position(new LatLng(Double.valueOf(lat), Double.valueOf(lon))).icon(BitmapDescriptorFactory.fromResource(R.drawable.tree2_48x48)).zIndex(10f).draggable(false).title(name));
+                }
                 mTreeMarkers[i].setTag(ID);
             }
         } catch (JSONException e) {

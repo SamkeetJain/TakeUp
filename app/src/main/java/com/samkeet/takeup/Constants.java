@@ -11,10 +11,14 @@ public class Constants {
         public static String BASE = "http://52.66.31.167/takeup/";
         public static String ADD_PLANT = "addplant.php";
         public static String LOGIN = "login.php";
+        public static String ADOPTION = "adopted.php";
         public static String PLANT_DB = "plant_details.php";
         public static String NOT_ADOPTED = "notadopted.php";
         public static String ADOPTED_DB = "adopted_details.php";
         public static String SIGNUP = "signup.php";
+        public static String GET_PROFILE = "profile.php";
+        public static String PUT_PROFILE = "updateprofile.php";
+        public static String FIREBASE = "firebase.php";
     }
 
     public static class LocationsData {
@@ -95,5 +99,9 @@ public class Constants {
             editor.clear();
             editor.apply();
         }
+    }
+
+    public static class FireBase {
+        public static String token;
     }
 }

@@ -47,6 +47,7 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.samkeet.takeup.Constants;
+import com.samkeet.takeup.DevelopersActivity;
 import com.samkeet.takeup.R;
 import com.samkeet.takeup.activities.LoginActivity;
 
@@ -129,7 +130,7 @@ public class OrgActivity extends AppCompatActivity implements OnMapReadyCallback
         headerResult = new AccountHeaderBuilder()
                 .withActivity(this)
                 .withTranslucentStatusBar(true)
-                //.withHeaderBackground(R.drawable.reva_headerp)
+                .withHeaderBackground(R.drawable.header)
 //                .withHeaderBackground(R.drawable.header)
                 /// TODO: 19-Oct-16
                 .withSavedInstance(savedInstanceState)
@@ -180,7 +181,8 @@ public class OrgActivity extends AppCompatActivity implements OnMapReadyCallback
 
                         }
                         if (drawerItem.getIdentifier() == 6) {
-
+                            Intent intent = new Intent(getApplicationContext(), DevelopersActivity.class);
+                            startActivity(intent);
                         }
                         return false;
                     }
@@ -338,7 +340,6 @@ public class OrgActivity extends AppCompatActivity implements OnMapReadyCallback
                     for (int i = 0; i < mTreeObjects.length(); i++) {
 
                         if (mTreeObjects.getJSONObject(i).getString("ID").equals(ID)) {
-                            Toast.makeText(getApplicationContext(), mTreeObjects.getJSONObject(i).toString(), Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(getApplicationContext(), DetailsActivity.class);
                             intent.putExtra("DATA", mTreeObjects.getJSONObject(i).toString());
                             startActivity(intent);

@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.samkeet.takeup.Constants;
 import com.samkeet.takeup.R;
+import com.samkeet.takeup.organisation.*;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -84,13 +85,13 @@ public class MyFleetActivity extends AppCompatActivity {
                 View child = mRecyclerView.findChildViewUnder(motionEvent.getX(), motionEvent.getY());
                 if (child != null && mGestureDetector.onTouchEvent(motionEvent)) {
                     int temp = mRecyclerView.getChildPosition(child);
-                    Intent intent = new Intent(getApplicationContext(), MyFleetActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), DetailsActivity.class);
                     try {
                         intent.putExtra("DATA", mTreeObjects.getJSONObject(temp).toString());
+                        startActivity(intent);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    startActivity(intent);
                 }
                 return false;
             }

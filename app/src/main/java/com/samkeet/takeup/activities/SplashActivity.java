@@ -1,6 +1,8 @@
 package com.samkeet.takeup.activities;
 
 import android.content.Intent;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -9,12 +11,20 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.samkeet.takeup.Constants;
 import com.samkeet.takeup.R;
 import com.samkeet.takeup.fragments.ImageFragment;
 import com.samkeet.takeup.fragments.LoginFragment;
 import com.samkeet.takeup.organisation.OrgActivity;
 import com.samkeet.takeup.users.UserActivity;
+
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 import me.relex.circleindicator.CircleIndicator;
 
@@ -28,6 +38,10 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+
+
+        FirebaseMessaging.getInstance().subscribeToTopic("global");
+        FirebaseInstanceId.getInstance().getToken();
 
         Constants.SharedPreferenceData.initSharedPreferenceData(getSharedPreferences(Constants.SharedPreferenceData.SHAREDPREFERENCES, MODE_PRIVATE));
 

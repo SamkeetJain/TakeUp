@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "143075370839",
+    "firebase_url": "https://takeup-e1fdb.firebaseio.com",
+    "project_id": "takeup-e1fdb",
+    "storage_bucket": "takeup-e1fdb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:143075370839:android:79327f45c3950e4f",
+        "android_client_info": {
+          "package_name": "com.samkeet.takeup"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "143075370839-2fs4340cae5pa8044hiifsnc6dcfg0pg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.samkeet.takeup",
+            "certificate_hash": "f002741c8f4e0e7a59a89363688a98dc9956549f"
+          }
+        },
+        {
+          "client_id": "143075370839-g2jemdtuhbb8vhmauctgad9sh2dofgo6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCVsFpplF6h242c6DfGM30lE58OOsMSn80"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "143075370839-g2jemdtuhbb8vhmauctgad9sh2dofgo6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

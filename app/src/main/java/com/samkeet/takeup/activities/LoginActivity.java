@@ -142,6 +142,8 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "USER_TYPE mismatch", Toast.LENGTH_SHORT).show();
             Constants.SharedPreferenceData.clearData();
         }
+
+        firebase();
     }
 
     private class Login extends AsyncTask<Void, Void, Integer> {
@@ -225,5 +227,54 @@ public class LoginActivity extends AppCompatActivity {
 
         }
     }
+
+    public void firebase() {
+        if (Constants.FireBase.token != null) {
+            UpdateToken updateToken = new UpdateToken();
+            updateToken.execute();
+        }
+    }
+
+    private class UpdateToken extends AsyncTask<Void, Void, Integer> {
+
+
+        protected void onPreExecute() {
+        }
+
+        protected Integer doInBackground(Void... params) {
+            try {
+                java.net.URL url = new URL(Constants.URLs.BASE + Constants.URLs.FIREBASE);
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.setDoInput(true);
+                connection.setDoOutput(true);
+                connection.setRequestMethod("POST");
+
+                Uri.Builder _data = new Uri.Builder().appendQueryParameter("token", Constants.SharedPreferenceData.getTOKEN()).appendQueryParameter("Firebase_Token", Constants.FireBase.token);
+                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(connection.getOutputStream(), "UTF-8"));
+                writer.write(_data.build().getEncodedQuery());
+                writer.flush();
+                writer.close();
+
+                InputStreamReader in = new InputStreamReader(connection.getInputStream());
+
+                StringBuilder jsonResults = new StringBuilder();
+                // Load the results into a StringBuilder
+                int read;
+                char[] buff = new char[1024];
+                while ((read = in.read(buff)) != -1) {
+                    jsonResults.append(buff, 0, read);
+                }
+                connection.disconnect();
+                return 1;
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+            return 1;
+        }
+
+        protected void onPostExecute(Integer result) {
+        }
+    }
+
 
 }
