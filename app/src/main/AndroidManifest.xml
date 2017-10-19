@@ -49,10 +49,6 @@
         <activity android:name=".users.MyFleetActivity" />
         <activity android:name=".DevelopersActivity" />
         <activity
-            android:name=".organisation.DetailsActivity"
-            android:label=""
-            android:theme="@style/Theme.AppCompat.Light.Dialog" />
-        <activity
             android:name=".users.DetailsActivity"
             android:label=""
             android:theme="@style/Theme.AppCompat.Light.Dialog" />
