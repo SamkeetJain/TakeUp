@@ -37,7 +37,7 @@
         android:padding="25dp">
 
         <Button
-            android:id="@+id/login_button"
+            android:id="@+id/btn_login"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -45,7 +45,7 @@
             android:theme="@style/GreenButton" />
 
         <Button
-            android:id="@+id/signup_button"
+            android:id="@+id/btn_signup"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
