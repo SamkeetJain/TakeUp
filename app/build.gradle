@@ -13,6 +13,10 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
+    dexOptions{
+        javaMaxHeapSize "12g"
+    }
     buildTypes {
         release {
             minifyEnabled false
