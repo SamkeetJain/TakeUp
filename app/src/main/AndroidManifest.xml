@@ -47,7 +47,6 @@
         <activity android:name=".users.Profile" />
         <activity android:name=".organisation.MyFleetActivity" />
         <activity android:name=".users.MyFleetActivity" />
-        <activity android:name=".DevelopersActivity" />
         <activity
             android:name=".users.DetailsActivity"
             android:label=""

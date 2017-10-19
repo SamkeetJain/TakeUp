@@ -46,7 +46,6 @@ import com.samkeet.takeup.Constants;
 import com.samkeet.takeup.DevelopersActivity;
 import com.samkeet.takeup.R;
 import com.samkeet.takeup.activities.LoginActivity;
-import com.samkeet.takeup.organisation.*;
 
 import org.json.JSONArray;
 import org.json.JSONException;
